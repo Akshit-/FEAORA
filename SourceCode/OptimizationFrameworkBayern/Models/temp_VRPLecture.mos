@@ -1,0 +1,71 @@
+model ModelName
+uses "mmxprs", "mmsheet"; !gain access to the Xpress-Optimizer solver
+
+declarations
+	!Sets
+	n: integer			!number of customers
+	N: set of integer	!set of nodes
+	C: set of integer	!set of customer
+	
+	!Parameters
+	X: array(N) of integer	!x-position of nodes
+	Y: array(N) of integer	!Y-position of nodes
+	
+	d: array(N, N) of real	! distance matrix
+	q: array(C) of integer	! demand 
+	cap: integer			! capacity of a vehicle
+	M: integer				! big M
+	
+	!dv's
+	x: array(N, N) of mpvar	! driving from i to j
+	y: array(N) of mpvar	! vehicle capacity at j
+
+	!labels
+	dist: linctr			!objective function
+
+	ctrLeave: array(C) of linctr
+	ctrFlow: array(N) of linctr	
+	ctrCapA: array(C) of linctr 
+	ctrCapB: array(C) of linctr 
+	ctrLoad: array(C,C) of linctr
+end-declarations
+n:=5
+
+
+
+N := 0..n
+C := 1..n
+
+initializations from "mmsheet.excel:Models//Data//VRP-Data.xlsx"
+X as 'noindex;[Daten_10$B5:B'+(5+n)+']'
+Y as 'noindex;[Daten_10$C5:C'+(5+n)+']'
+q as 'noindex;[Daten_10$D6:D'+(5+n)+']'
+cap as 'noindex;[Daten_10$H2]'
+M as 'noindex;[Daten_10$H1]'
+end-initializations
+
+!pre-processing
+forall(i, j in N) 
+	d(i,j) := round(sqrt((X(i)-X(j))^2 +(Y(i)-Y(j))^2 )*100)/100
+
+
+forall(i in C)
+	ctrLeave(i) := sum(j in N) x(i,j) = 1
+
+forall(i in N)
+	ctrFlow(i) := sum(j in N) x(i,j) = sum(j in N) x(j,i) 
+
+forall(i,j in C) ctrLoad(i,j) := y(j)- y(i) >= q(j) - M*(1-x(i,j))
+
+forall(i in C) ctrCapA(i) := q(i) <= y(i)
+forall(i in C) ctrCapB(i) := y(i) <= cap
+
+forall(i,j in N) x(i,j) is_binary
+
+dist := sum(i,j in N) d(i,j)*x(i,j)
+
+minimize(dist)
+
+
+
+end-model

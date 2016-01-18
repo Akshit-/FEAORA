@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="res"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/commons-lang3-3.4.jar"/>
+	<classpathentry kind="lib" path="lib/commons-math3-3.5.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/OptimizationFrameworkBayern/lib/commons-math3-3.5-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/jdic-all.jar"/>
+	<classpathentry kind="lib" path="lib/license.jar"/>
+	<classpathentry kind="lib" path="lib/poi-3.12-20150511.jar"/>
+	<classpathentry kind="lib" path="lib/aec2.jar"/>
+	<classpathentry kind="lib" path="lib/bindrv.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang3-3.4-javadoc.jar"/>
+	<classpathentry kind="lib" path="lib/commons-math3-3.5-javadoc.jar"/>
+	<classpathentry kind="lib" path="lib/ooxml-schemas-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/ooxml-security-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/xmlbeans-2.6.0.jar"/>
+	<classpathentry kind="lib" path="lib/xprb.jar"/>
+	<classpathentry kind="lib" path="lib/xprd.jar"/>
+	<classpathentry kind="lib" path="lib/xprm.jar"/>
+	<classpathentry kind="lib" path="lib/xprs.jar"/>
+	<classpathentry kind="lib" path="lib/hamcrest-core-1.3.jar"/>
+	<classpathentry kind="lib" path="lib/jcommon-1.0.23.jar"/>
+	<classpathentry kind="lib" path="lib/orsoncharts-1.4-eval-nofx.jar"/>
+	<classpathentry kind="lib" path="lib/orsonpdf-1.6-eval.jar"/>
+	<classpathentry kind="lib" path="lib/servlet.jar"/>
+	<classpathentry kind="lib" path="lib/swtgraphics2d.jar"/>
+	<classpathentry kind="lib" path="lib/poi-excelant-3.12-20150511.jar"/>
+	<classpathentry kind="lib" path="lib/poi-ooxml-3.12-20150511.jar"/>
+	<classpathentry kind="lib" path="lib/poi-ooxml-schemas-3.12-20150511.jar"/>
+	<classpathentry kind="lib" path="lib/poi-scratchpad-3.12-20150511.jar"/>
+	<classpathentry kind="lib" path="lib/commons-codec-1.9.jar"/>
+	<classpathentry kind="lib" path="lib/geocoder-java-0.16.jar"/>
+	<classpathentry kind="lib" path="lib/gson-2.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-api-1.7.12.jar"/>
+	<classpathentry kind="lib" path="lib/geocoder-java-0.16-javadoc.jar"/>
+	<classpathentry kind="lib" path="lib/geocoder-java-0.16-sources.jar"/>
+	<classpathentry kind="lib" path="lib/jfreechart-1.0.19.jar"/>
+	<classpathentry kind="lib" path="lib/forms-1.3.0.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -1,0 +1,63 @@
+(!******************************************************
+   Mosel User Guide Example Problems
+   ================================= 
+
+   file burglar11.mos
+   ``````````````````
+   Same as burglari.mos, with some scalars 
+   input from/output to calling application.
+   
+   (c) 2008 Fair Isaac Corporation
+       author: S. Heipcke, Mar. 2008, rev. Apr. 2013
+*******************************************************!)
+
+model Burglar11
+ uses "mmxprs"
+ 
+
+ declarations
+  SIZE=10
+  WTMAX = 100                   ! Maximum weight allowed
+  ITEMS = 1..SIZE
+  VALUE: array(ITEMS) of real      ! Value of items
+  WEIGHT: array(ITEMS) of real     ! Weight of items
+  MaxVal: linctr
+  Depots = {"Delhi","Mumbai","Munich"}
+  NodeCondition: array(Depots) of integer ! decision variable which depots have been selected
+  EdgeCondition: array(Depots,Depots) of integer ! decision variable which paths have been selected
+ end-declarations
+VALUE::[31.04, 48.11, 47.16, 35.14, 16.7, 65.04, 45.16, 37.06, 53.18, 52.01]
+WEIGHT::[23.93, 39.77, 23.8, 26.35, 25.12, 32.19, 22.86, 33.73, 30.83, 46.07]
+
+
+
+ declarations
+  take: array(ITEMS) of mpvar      ! 1 if we take item i; 0 otherwise
+ end-declarations
+
+
+  NodeCondition::(["Delhi","Mumbai","Munich"])[0,1,1]
+  EdgeCondition::[0,1,1,0,0,0,0,1,0]
+
+! Objective: maximize total value
+ MaxVal:= sum(i in ITEMS) VALUE(i)*take(i) 
+
+! Weight restriction
+ sum(i in ITEMS) WEIGHT(i)*take(i) <= WTMAX
+
+! All variables are 0/1
+ forall(i in ITEMS) take(i) is_binary  
+
+ maximize(MaxVal)                  ! Solve the MIP-problem
+
+! Print out the solution
+ writeln("Solution:")
+ forall(i in ITEMS)  writeln(" take(", i, "): ", getsol(take(i)))
+
+! Output solution to calling application
+ !initializations to IODRV
+ ! evaluation of getobjval as SOLVAL
+ ! evaluation of round(sum(i in ITEMS) getsol(take(i))) as NUM
+ !end-initializations
+
+end-model

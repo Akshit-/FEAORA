@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+      #map-canvas { height: 100% }
+    </style>
+	<!--key=AIzaSyC5VR8_8q2dfC1GkWylbohXiNAXeg7oPA4&sensor-->
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?sensor=false">
+    </script>
+    <script type="text/javascript">
+	//file:///C:/private/IDP_Documentation/map.html?mapType=PointsOnly&points=11.581833,48.135152,Munich;14.436785,50.077079,Prague;-0.126318,51.519884,London;2.352192,48.856882,Paris
+	//file:///C:/private/IDP_Documentation/map.html?mapType=PointsOnly$points=11.581833,48.135152,Munich;14.436785,50.077079,Prague;-0.126318,51.519884,London;2.352192,48.856882,Paris
+	//DirectedPath URL example
+	//file:///C:/private/IDP_Documentation/map.html?mapType=PointsWithDirectedPath&points=11.581833,48.135152,Munich;14.436785,50.077079,Prague*-0.126318,51.519884,London;2.352192,48.856882,Paris
+	//file:///C:/private/IDP_Documentation/map.html?mapType=PointsWithDirectedPath$points=11.581833,48.135152,Munich;14.436785,50.077079,Prague*-0.126318,51.519884,London;2.352192,48.856882,Paris
+	//UndirectedPath URL example
+	//file:///C:/private/IDP_Documentation/map.html?mapType=PointsWithPath&points=11.581833,48.135152,Munich;14.436785,50.077079,Prague*-0.126318,51.519884,London;2.352192,48.856882,Paris
+	//file:///C:/private/IDP_Documentation/map.html?mapType=PointsWithPath$points=11.581833,48.135152,Munich;14.436785,50.077079,Prague*-0.126318,51.519884,London;2.352192,48.856882,Paris
+      var map;
+      // Adds a marker to the map.
+      function addMarker(loc,name, map) {
+        // Add the marker at the clicked location, and add the next-available label
+        // from the array of alphabetical characters.
+		
+        var marker = new google.maps.Marker({
+          position: loc,
+          label: name,
+          title: name,
+          map: map
+        });
+        var infowindow = new google.maps.InfoWindow({
+          content: name
+        });
+
+  
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
+      }
+      function initialize() {
+        console.log("params are : ",location.search);
+        var args = location.search.split('?')[1];
+        console.log("args are : ",args);
+		var mapType = undefined;
+		if(args.indexOf('&')>-1){
+			//in mac
+			mapType = args.split('mapType=')[1].split('&')[0];
+		} else if (args.indexOf('$')>-1){
+            mapType = args.split('mapType=')[1].split('$')[0];
+		}
+        console.log("maptype : ",mapType);
+		var mapOptions = {
+          center: new google.maps.LatLng(0, 0),
+          zoom: 2
+        };
+        map = new google.maps.Map(document.getElementById("map-canvas"),
+            mapOptions);
+		var points = [];
+		var pointPairs  = [];
+		if(mapType=='PointsOnly'){
+			points = args.split('points=')[1].split(';');
+		} else {
+			pointPairs = args.split('points=')[1].split('*');
+		}
+        console.log("args.split('points=')[1] : ",args.split('points=')[1]);
+        console.log("points are : ",points);
+		console.log("pointPairs are : ",pointPairs);
+
+        
+		var paths = [];
+        
+		if(mapType=='PointsOnly'){
+			for(var point in points){
+				console.log("point : ",points[point]);
+				var data = points[point].split(',');
+				var long = parseFloat(data[0]);
+				var lat = parseFloat(data[1]);
+				var name = data[2];
+				 console.log("long : ",long);
+				 console.log("lat : ",lat);
+				 console.log("name : ",name);
+				var loc = {"lng":long,"lat":lat};
+				addMarker(loc,name,map);
+			}
+		} else {
+			for(var pair in pointPairs){
+			    var pathCoordinates = [];
+				var points = pointPairs[pair].split(';');
+				for(var point in points){
+					console.log("point : ",points[point]);
+					var data = points[point].split(',');
+					var long = parseFloat(data[0]);
+					var lat = parseFloat(data[1]);
+					var name = data[2];
+					console.log("long : ",long);
+					console.log("lat : ",lat);
+					console.log("name : ",name);
+					var loc = {"lng":long,"lat":lat};
+					pathCoordinates.push(loc);
+					addMarker(loc,name,map);
+				}
+				paths.push(pathCoordinates);
+			}
+			if(mapType=='PointsWithDirectedPath'){
+			console.log("paths : ",paths);
+                // Define a symbol using a predefined path (an arrow)
+                // supplied by the Google Maps JavaScript API.
+                var lineSymbol = {
+                   path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+                };
+				for(var p in paths){
+					var linePath = new google.maps.Polyline({
+						path: paths[p],
+						icons: [{
+							icon: lineSymbol,
+							offset: '50%'
+							},
+							{
+							icon: lineSymbol,
+							offset: '100%'
+							}],
+						geodesic: true,
+						strokeColor: '#FF0000',
+						strokeOpacity: 1.0,
+						strokeWeight: 2
+					});
+					linePath.setMap(map);
+				}
+				
+          } else if (mapType=='PointsWithPath'){
+		        for(var p in paths){
+					var linePath = new google.maps.Polyline({
+						path: paths[p],
+						icons: [{
+							icon: lineSymbol,
+							offset: '100%'
+							}],
+						geodesic: true,
+						strokeColor: '#FF0000',
+						strokeOpacity: 1.0,
+						strokeWeight: 2
+					});
+					linePath.setMap(map);
+				}
+		    }
+			
+		}
+        
+		
+
+    }     
+    google.maps.event.addDomListener(window, 'load', initialize);
+      
+    </script>
+  </head>
+  <body>
+    <div id="map-canvas"/>
+  </body>
+</html>

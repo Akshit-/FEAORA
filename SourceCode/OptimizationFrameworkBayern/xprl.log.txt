@@ -1,0 +1,19 @@
+24/08/2015 09:36:00: Encountered network error 9 (EBADF) when executing 'send(packet) in LicSocket_Write'.
+24/08/2015 11:11:23: Encountered network error 9 (EBADF) when executing 'send(packet) in LicSocket_Write'.
+24/08/2015 16:21:47: Encountered network error 9 (EBADF) when executing 'send(packet) in LicSocket_Write'.
+03/09/2015 01:35:34: Encountered network error 9 (EBADF) when executing 'send(packet) in LicSocket_Write'.
+09/09/2015 21:15:30: Encountered network error 9 (EBADF) when executing 'send(packet) in LicSocket_Write'.
+<<<<<<< HEAD
+26/09/2015 00:38:25: Encountered network error 9 (EBADF) when executing 'send(packet) in LicSocket_Write'.
+=======
+26/09/2015 00:59:04: Encountered network error 9 (EBADF) when executing 'send(packet) in LicSocket_Write'.
+>>>>>>> c1b924307d85fdcba9b36042dcc3d0dbc3ff4363
+26/09/2015 02:56:00: Encountered network error 9 (EBADF) when executing 'send(packet) in LicSocket_Write'.
+26/09/2015 15:25:21: Encountered network error 9 (EBADF) when executing 'send(packet) in LicSocket_Write'.
+01/10/2015 00:33:22: Encountered network error 9 (EBADF) when executing 'send(packet) in LicSocket_Write'.
+01/10/2015 06:21:08: Encountered network error 9 (EBADF) when executing 'send(packet) in LicSocket_Write'.
+05/10/2015 10:05:55: Encountered network error 9 (EBADF) when executing 'send(packet) in LicSocket_Write'.
+01/11/2015 16:15:36: Encountered network error 9 (EBADF) when executing 'send(packet) in LicSocket_Write'.
+09/11/2015 02:10:50: Encountered network error 9 (EBADF) when executing 'send(packet) in LicSocket_Write'.
+09/11/2015 13:55:06: Encountered network error 9 (EBADF) when executing 'send(packet) in LicSocket_Write'.
+09/11/2015 21:55:28: Encountered network error 9 (EBADF) when executing 'send(packet) in LicSocket_Write'.
